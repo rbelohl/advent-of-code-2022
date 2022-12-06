@@ -8,12 +8,9 @@ fun findCommonElement(s: String) : Char {
 }
 
 fun getBadge(bags: List<String>) : Char {
-    val allLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return bags
         .map{ it.toSet()}
-        .fold(allLetters.toSet()) { acc, s ->
-            acc.intersect(s)
-        }
+        .reduce { acc, s -> acc.intersect(s) }
         .first()
 }
 
