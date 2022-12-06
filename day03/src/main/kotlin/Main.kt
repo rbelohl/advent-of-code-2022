@@ -2,16 +2,16 @@ import java.io.File
 
 fun findCommonElement(s: String) : Char {
     val mid = s.length / 2
-    val firstHalf = s.substring(0, mid).toHashSet()
-    val secondHalf = s.substring(mid).toHashSet()
+    val firstHalf = s.substring(0, mid).toSet()
+    val secondHalf = s.substring(mid).toSet()
     return firstHalf.intersect(secondHalf).first()
 }
 
 fun getBadge(bags: List<String>) : Char {
     val allLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return bags
-        .map{ it.toHashSet()}
-        .fold(allLetters.toHashSet()) { acc: Set<Char>, s: Set<Char> ->
+        .map{ it.toSet()}
+        .fold(allLetters.toSet()) { acc, s ->
             acc.intersect(s)
         }
         .first()
