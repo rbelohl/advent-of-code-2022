@@ -68,11 +68,13 @@ fun <T, R> calculateAllDirections(
     calculate: (a: List<List<T>>) -> List<List<R>>,
     combine: (a: R, b: R) -> R)
 : List<List<R>> {
-    var result = calculateLeftToRight(grid, calculate)
-    result = combine2dLists(result, calculateRightToLeft(grid, calculate), combine)
-    result = combine2dLists(result, calculateTopToBottom(grid, calculate), combine)
-    result = combine2dLists(result, calculateBottomToTop(grid, calculate), combine)
-    return result
+    val lists = listOf(
+        calculateLeftToRight(grid, calculate),
+        calculateRightToLeft(grid, calculate),
+        calculateTopToBottom(grid, calculate),
+        calculateBottomToTop(grid, calculate)
+    )
+    return lists.reduce{ acc, curr -> combine2dLists(acc, curr, combine) }
 }
 
 fun <T> combineLists(first: List<T>, second: List<T>, operation: (a : T, b: T) -> T) : List<T> {
