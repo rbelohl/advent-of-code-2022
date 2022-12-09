@@ -35,10 +35,9 @@ fun simulateRope(movements: List<Pair<String, Int>>, ropeLength: Int) : Int {
     val rope = MutableList(ropeLength) { Pair(0, 0) }
     val visitedPositions = mutableSetOf(rope.last())
 
-    movements.forEach {
-        for (i in 0 until it.second) {
-            val direction = directions[it.first]!!
-            moveRope(rope, direction)
+    movements.forEach { (direction, distance) ->
+        for (i in 0 until distance) {
+            moveRope(rope, directions[direction]!!)
             visitedPositions.add(rope.last())
         }
     }
@@ -49,10 +48,8 @@ fun main(args: Array<String>) {
     val filename = args[0]
     val movements = File(filename)
         .readLines()
-        .map {
-            val s = it.split(" ")
-            Pair(s[0], s[1].toInt())
-        }
+        .map { it.split(" ") }
+        .map { Pair(it[0], it[1].toInt()) }
 
     val answer1 = simulateRope(movements, 2)
     val answer2 = simulateRope(movements, 10)
